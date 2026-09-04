@@ -1,0 +1,54 @@
+# Basic Data Analysis
+df.shape
+df.info()
+df.describe()
+df.isnull().sum()
+df.duplicated().sum()
+
+# Department Analysis
+df['Department'].value_counts()
+
+# Salary Analysis
+df.groupby('Department')['Salary'].mean().sort_values()
+
+# Experience vs Salary
+sns.scatterplot(
+    data=df,
+    x='Experience_Years',
+    y='Salary'
+)
+
+plt.title("Experience vs Salary")
+plt.show()
+
+# Performance Analysis
+df.groupby('Department')['Performance_Score'].mean()
+
+# Employee Attrition
+df['Attrition'].value_counts()
+
+# Analyze whether attrition is related to
+pd.crosstab(
+    df['Department'],
+    df['Attrition'],
+    normalize='index'
+) * 100
+
+# Correlation Heatmap
+numeric_cols = [
+    'Age',
+    'Experience_Years',
+    'Salary',
+    'Performance_Score',
+    'Work_Hours',
+    'Job_Satisfaction'
+]
+
+sns.heatmap(
+    df[numeric_cols].corr(),
+    annot=True,
+    cmap='coolwarm'
+)
+
+plt.title("Employee Data Correlation")
+plt.show()
